@@ -22,6 +22,7 @@ let disp_rho1 = 1.0*Math.PI;
 
 function setup() {
   createCanvas(w, h);
+  canvas.parent("sketch2-container");
 }
 
 function convert(x, x0, x1, y0, y1)
@@ -64,7 +65,7 @@ function draw() {
 
 }
 
-createCanvasInContainer(() => {
-  setup();
-  draw();
-});
+// createCanvasInContainer(() => {
+//   setup();
+//   draw();
+// });
