@@ -23,6 +23,7 @@ var sketch1 = function(p) {
 
   p.setup = function() {
     p.createCanvas(w, h);
+    p.noLoop()
   };
 
   function convert(x, x0, x1, y0, y1) {
