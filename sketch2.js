@@ -1,60 +1,76 @@
-var sketch2 = function(p) {
-  // Canvas dimensions and margins
-  let w = 500;
-  let h = 320;
-  let x_margin = 25;
-  let y_margin = x_margin;
-
-  // Bar parameters
-  let bar_num = 15;
-  let bar_w_min = 0.05;
-  let bar_w_max = 0.6;
-  let bar_phi_0 = 0.0;
-  let bar_phi_1 = p.PI;
-  let bar_alpha_0 = 1.0;
-  let bar_alpha_1 = 0.5;
-
-  // Bar displacement parameters
-  let disp_mag = 1.0/6.0;
-  let disp_theta0 = 0.025 * p.PI;
-  let disp_theta1 = 0.975 * p.PI;
-  let disp_rho0 = 0.0;
-  let disp_rho1 = 1.0 * p.PI;
-
-  p.setup = function() {
-    p.createCanvas(w, h);
-  };
-
-  function convert(x, x0, x1, y0, y1) {
-    return y0 + (x - x0) * (y1 - y0) / (x1 - x0);
+// This class describes the properties of a single particle.
+class Particle {
+  constructor(p) {
+    this.p = p;
+    this.x = p.random(0, p.width);
+    this.y = p.random(0, p.height);
+    this.mass = p.random(1, 8);
+    this.r = 10 * this.mass ** 0.333;
+    this.charge = p.random(-1, 1);
+    this.xSpeed = p.random(-0.3, 0.3);
+    this.ySpeed = p.random(-0.3, 0.3);
   }
 
-  p.draw = function() {
-    let x0 = x_margin;
-    let x1 = w - x_margin;
-    let y0 = y_margin;
-    let y1 = h - y_margin;
-    let bar_interval = (x1 - x0) / bar_num;
+  // Creation of a particle.
+  drawParticle() {
+    this.p.noStroke();
+    this.p.fill(`rgba(${this.p.int(255 * (1 + this.charge / 2))}, ${this.p.int(255 * (1 - this.charge / 2))}, 0, 0.5)`);
+    this.p.circle(this.x, this.y, this.r);
+  }
 
-    p.background(0, 0, 0);
-    p.strokeWeight(2);
-
-    for (let i = 0; i < bar_num + 1; i++) {
-      p.stroke(255, 255, 255, 255 * convert(i, 0, bar_num, bar_alpha_0, bar_alpha_1));
-
-      let phi = convert(i, 0, bar_num, bar_phi_0, bar_phi_1)
-      let bar_cos = p.cos(phi);
-      let bar_w = p.int(convert(bar_cos, -1.0, 1.0, bar_w_min * bar_interval, bar_w_max * bar_interval));
-
-      let base_x = convert(i, 0, bar_num, x0, x1)
-      for (let y = y0; y < y1; y += 1) {
-        let theta = convert(y, y0, y1, disp_theta0, disp_theta1);
-        let rho = convert(i, 0, bar_num, disp_rho0, disp_rho1);
-
-        let x = base_x + p.sin(theta) ** 2 * p.sin(rho) ** 2 * disp_mag * (x1 - x0);
-
-        p.line(x, y, x + bar_w, y);
+  ApplyForce(particles) {
+    particles.forEach(other => {
+      const distance = this.p.dist(this.x, this.y, other.x, other.y);
+      if (distance > 0.0) {
+        const force = 1 / distance ** 4 + 5 * this.charge * other.charge / distance ** 2;
+        this.xSpeed += force * (other.x - this.x) / distance / this.mass;
+        this.ySpeed += force * (other.y - this.y) / distance / this.mass;
       }
+    });
+  }
+
+  // Setting the particle in motion.
+  moveParticle() {
+    if (this.x < 0 || this.x > this.p.width) {
+      this.xSpeed *= -1;
+    }
+    if (this.y < 0 || this.y > this.p.height) {
+      this.ySpeed *= -1;
+    }
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
+  }
+
+  // Creates the connections (lines) between particles within a certain distance.
+  drawLinks(particles) {
+    particles.forEach(element => {
+      let dis = this.p.dist(this.x, this.y, element.x, element.y);
+      if (dis < 40) {
+        this.p.stroke('rgba(255,255,255,0.4)');
+        this.p.line(this.x, this.y, element.x, element.y);
+      }
+    });
+  }
+}
+
+// Instance mode sketch.
+var sketch2 = function(p) {
+  let particles = [];
+
+  p.setup = function() {
+    p.createCanvas(720, 400);
+    for (let i = 0; i < p.width / 200; i++) {
+      particles.push(new Particle(p));
+    }
+  };
+
+  p.draw = function() {
+    p.background('#0f0f0f');
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].ApplyForce(particles.slice(i));
+      particles[i].moveParticle();
+      particles[i].drawParticle();
+      particles[i].drawLinks(particles.slice(i));
     }
   };
 };
