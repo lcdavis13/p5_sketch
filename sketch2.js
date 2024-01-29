@@ -5,7 +5,7 @@ let x_margin = 25;
 let y_margin = x_margin;
 
 // Bar width
-let bar_num = 25;
+let bar_num = 15;
 let bar_w_min = 0.05;
 let bar_w_max = 0.6;
 let bar_phi_0 = 0.0;
