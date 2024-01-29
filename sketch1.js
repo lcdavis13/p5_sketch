@@ -1,4 +1,5 @@
-//Canvas
+var sketch1 = function(p) {
+  //Canvas
 let w = 500;
 let h = 320;
 let x_margin = 25;
@@ -22,7 +23,6 @@ let disp_rho1 = 1.0*Math.PI;
 
 function setup() {
   createCanvas(w, h);
-  canvas.parent("sketch1-container");
 }
 
 function convert(x, x0, x1, y0, y1)
@@ -69,3 +69,6 @@ function draw() {
 //   setup();
 //   draw();
 // });
+
+
+};
