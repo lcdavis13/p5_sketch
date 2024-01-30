@@ -55,6 +55,11 @@ class Particle {
 
 // Instance mode sketch.
 var sketch2 = function(p) {
+  p.parameters = {
+    w: { label: 'Canvas Width', min: 100, max: 1024, step: 10, value: 720 },
+    h: { label: 'Canvas Height', min: 100, max: 1024, step: 10, value: 400 },
+  }
+
   let particles = [];
   let isPaused = false; // Variable to track pause state
 
