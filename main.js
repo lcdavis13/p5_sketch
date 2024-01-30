@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let sketch2Instance = new p5(sketch2, 'container2');
 
     createControls(sketch1Instance, 'container1-controls');
+    // Assuming you'll add createControls for sketch2Instance too if needed
 
     function createControls(sketchInstance, controlsContainerId) {
         let container = document.getElementById(controlsContainerId);
@@ -28,19 +29,21 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(document.createElement('br'));
 
             // Event listener for slider
-            let slideFunc;
-            if (paramName == "w" || paramName == "h" || paramName == "width" || paramName == "height") 
-                slideFunc = function() {
-                    sketchInstance.parameters[paramName].value = parseFloat(this.value);
+            slider.addEventListener('input', function() {
+                sketchInstance.parameters[paramName].value = parseFloat(this.value);
+                
+                if (paramName === "w" || paramName === "h" || paramName === "width" || paramName === "height") {
                     sketchInstance.resizeCanvas(sketchInstance.parameters["w"].value, sketchInstance.parameters["h"].value);
-                    sketchInstance.redraw();
+                    adjustControlsContainerHeight(controlsContainerId, sketchInstance.parameters["h"].value);
                 }
-            else
-                slideFunc = function() {
-                    sketchInstance.parameters[paramName].value = parseFloat(this.value);
-                    sketchInstance.redraw();
-                }
-            slider.addEventListener('input', slideFunc);
+
+                sketchInstance.redraw();
+            });
         }
+    }
+
+    function adjustControlsContainerHeight(containerId, newHeight) {
+        let container = document.getElementById(containerId);
+        container.style.maxHeight = newHeight + 'px'; // Adjust 50px for additional padding/spacing
     }
 });
