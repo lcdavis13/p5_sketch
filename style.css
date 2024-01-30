@@ -8,7 +8,6 @@ canvas {
   
 .controls-container {
     overflow-y: auto;
-    overflow-x: auto;
     padding: 10px;
     margin: 0; /* Resetting margin */
     /* Set an initial max-height if needed, or make it depend on the sketch's height */
@@ -23,4 +22,24 @@ canvas {
 .controls-container label,
 .controls-container input[type="range"] {
     margin: 5px 0; /* Adjust as needed */
+}
+
+.textbox {
+  padding: 10px;
+  margin-left: 20px; /* Space between the sketch and the textbox */
+  /* Adjust width, font size, and other styles as needed */
+  width: 200px; /* Example width, adjust as needed */
+}
+
+.textbox h1 {
+  font-size: 1.5em; /* Adjust heading size as needed */
+}
+
+.textbox p {
+  font-size: 1em; /* Adjust paragraph text size as needed */
+}
+
+.textbox a {
+  color: blue; /* Style for hyperlinks */
+  text-decoration: underline;
 }
