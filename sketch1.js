@@ -32,28 +32,28 @@ var sketch1 = function(p) {
 
   p.draw = function() {
 
-    let x0 = p.parameters.xMargin;
-    let x1 = w - p.parameters.xMargin;
-    let y0 = p.parameters.yMargin;
-    let y1 = h - p.parameters.yMargin;
-    let bar_interval = (x1 - x0) / p.parameters.barNum;
+    let x0 = p.parameters.xMargin.value;
+    let x1 = w - p.parameters.xMargin.value;
+    let y0 = p.parameters.yMargin.value;
+    let y1 = h - p.parameters.yMargin.value;
+    let bar_interval = (x1 - x0) / p.parameters.barNum.value;
 
     p.background(0, 0, 0);
     p.strokeWeight(2);
 
-    for (let i = 0; i < p.parameters.barNum + 1; i++) {
-      p.stroke(255, 255, 255, 255 * convert(i, 0, p.parameters.barNum, p.parameters.barAlpha0, p.parameters.barAlpha1));
+    for (let i = 0; i < p.parameters.barNum.value + 1; i++) {
+      p.stroke(255, 255, 255, 255 * convert(i, 0, p.parameters.barNum.value, p.parameters.barAlpha0.value, p.parameters.barAlpha1.value));
 
-      let phi = convert(i, 0, p.parameters.barNum, p.parameters.barPhi0, p.parameters.barPhi1)
+      let phi = convert(i, 0, p.parameters.barNum.value, p.parameters.barPhi0.value, p.parameters.barPhi1.value)
       let bar_cos = p.cos(phi);
-      let bar_w = p.int(convert(bar_cos, -1.0, 1.0, p.parameters.barWMin * bar_interval, p.parameters.barWMax * bar_interval));
+      let bar_w = p.int(convert(bar_cos, -1.0, 1.0, p.parameters.barWMin.value * bar_interval, p.parameters.barWMax.value * bar_interval));
 
-      let base_x = convert(i, 0, p.parameters.barNum, x0, x1)
+      let base_x = convert(i, 0, p.parameters.barNum.value, x0, x1)
       for (let y = y0; y < y1; y += 1) {
-        let theta = convert(y, y0, y1, p.parameters.dispTheta0, p.parameters.dispTheta1);
-        let rho = convert(i, 0, p.parameters.barNum, p.parameters.dispRho0, p.parameters.dispRho1);
+        let theta = convert(y, y0, y1, p.parameters.dispTheta0.value, p.parameters.dispTheta1.value);
+        let rho = convert(i, 0, p.parameters.barNum.value, p.parameters.dispRho0.value, p.parameters.dispRho1.value);
 
-        let x = base_x + p.sin(theta) ** 2 * p.sin(rho) ** 2 * p.parameters.dispMag * (x1 - x0);
+        let x = base_x + p.sin(theta) ** 2 * p.sin(rho) ** 2 * p.parameters.dispMag.value * (x1 - x0);
 
         p.line(x, y, x + bar_w, y);
       }
