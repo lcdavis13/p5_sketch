@@ -22,7 +22,7 @@ class Particle {
     particles.forEach(other => {
       const distance = this.p.dist(this.x, this.y, other.x, other.y);
       if (distance > 0.0) {
-        const force = 1 / distance ** 4 + 5 * this.charge * other.charge / distance ** 2;
+        const force = 1 / distance ** 4 - 5 * this.charge * other.charge / distance ** 2;
         this.xSpeed += force * (other.x - this.x) / distance / this.mass;
         this.ySpeed += force * (other.y - this.y) / distance / this.mass;
       }
@@ -62,7 +62,7 @@ var sketch2 = function(p) {
     particleMaxSpeed: { label: 'Max Particle Speed', min: 0.1, max: 1.0, step: 0.05, value: 0.3 },
     particleMinMass: { label: 'Min Particle Mass', min: 1, max: 10, step: 1, value: 1 },
     particleMaxMass: { label: 'Max Particle Mass', min: 1, max: 10, step: 1, value: 8 },
-    particleChargeRange: { label: 'Particle Charge Range', min: -1, max: 1, step: 0.1, value: 1 },
+    particleChargeRange: { label: 'Max Particle Charge', min: 0, max: 1, step: 0.1, value: 1 },
     linkDistance: { label: 'Link Distance', min: 10, max: 100, step: 5, value: 40 },
   }
 
