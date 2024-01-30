@@ -71,7 +71,7 @@ var sketch2 = function(p) {
 
     p.setup = function() {
         p.createCanvas(p.parameters.w.value, p.parameters.h.value);
-        initializeParticles();
+        p.initializeParticles();
 
     // Button event listener
     document.getElementById('pause-resume').addEventListener('click', function() {
@@ -93,13 +93,6 @@ var sketch2 = function(p) {
           particles.push(new Particle(p));
       }
   };
-
-  function initializeParticles() {
-    particles = [];
-    for (let i = 0; i < p.parameters.particleCount.value; i++) {
-        particles.push(new Particle(p));
-    }
-}
 
 p.draw = function() {
     p.background('#0f0f0f');
