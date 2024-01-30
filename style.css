@@ -23,7 +23,7 @@ canvas {
   max-height: 100%;
 }
 
-#container1, #container2 {
+.sketch-canvas-container {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: auto; /* Let the sketch size dictate its own space */
