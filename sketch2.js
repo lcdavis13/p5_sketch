@@ -2,14 +2,14 @@
 class Particle {
   constructor(p) {
     this.p = p;
-    this.x = p.random(0, p.width);
-    this.y = p.random(0, p.height);
-    this.mass = p.random(1, 8);
+    this.x = p.random(0, p.parameters.w.value);
+    this.y = p.random(0, p.parameters.h.value);
+    this.mass = p.random(p.parameters.particleMinMass.value, p.parameters.particleMaxMass.value);
     this.r = 10 * this.mass ** 0.333;
-    this.charge = p.random(-1, 1);
-    this.xSpeed = p.random(-0.3, 0.3);
-    this.ySpeed = p.random(-0.3, 0.3);
-  }
+    this.charge = p.random(-p.parameters.particleChargeRange.value, p.parameters.particleChargeRange.value);
+    this.xSpeed = p.random(-p.parameters.particleMaxSpeed.value, p.parameters.particleMaxSpeed.value);
+    this.ySpeed = p.random(-p.parameters.particleMaxSpeed.value, p.parameters.particleMaxSpeed.value);
+}
 
   // Creation of a particle.
   drawParticle() {
@@ -56,18 +56,22 @@ class Particle {
 // Instance mode sketch.
 var sketch2 = function(p) {
   p.parameters = {
-    w: { label: 'Canvas Width', min: 100, max: 1024, step: 10, value: 720 },
-    h: { label: 'Canvas Height', min: 100, max: 1024, step: 10, value: 400 },
+    w: { label: 'Canvas Width', min: 32, max: 1024, step: 2, value: 720 },
+    h: { label: 'Canvas Height', min: 32, max: 1024, step: 2, value: 400 },
+    particleCount: { label: 'Particle Count', min: 1, max: 100, step: 1, value: 10 },
+    particleMaxSpeed: { label: 'Max Particle Speed', min: 0.1, max: 1.0, step: 0.05, value: 0.3 },
+    particleMinMass: { label: 'Min Particle Mass', min: 1, max: 10, step: 1, value: 1 },
+    particleMaxMass: { label: 'Max Particle Mass', min: 1, max: 10, step: 1, value: 8 },
+    particleChargeRange: { label: 'Particle Charge Range', min: -1, max: 1, step: 0.1, value: 1 },
+    linkDistance: { label: 'Link Distance', min: 10, max: 100, step: 5, value: 40 },
   }
 
   let particles = [];
-  let isPaused = false; // Variable to track pause state
+    let isPaused = false;
 
-  p.setup = function() {
-    p.createCanvas(720, 400);
-    for (let i = 0; i < p.width / 200; i++) {
-      particles.push(new Particle(p));
-    }
+    p.setup = function() {
+        p.createCanvas(p.parameters.w.value, p.parameters.h.value);
+        initializeParticles();
 
     // Button event listener
     document.getElementById('pause-resume').addEventListener('click', function() {
@@ -82,13 +86,20 @@ var sketch2 = function(p) {
     });
   };
 
-  p.draw = function() {
+  function initializeParticles() {
+    particles = [];
+    for (let i = 0; i < p.parameters.particleCount.value; i++) {
+        particles.push(new Particle(p));
+    }
+}
+
+p.draw = function() {
     p.background('#0f0f0f');
     for (let i = 0; i < particles.length; i++) {
-      particles[i].ApplyForce(particles.slice(i));
-      particles[i].moveParticle();
-      particles[i].drawParticle();
-      particles[i].drawLinks(particles.slice(i));
+        particles[i].ApplyForce(particles.slice(i));
+        particles[i].moveParticle();
+        particles[i].drawParticle();
+        particles[i].drawLinks(particles.slice(i));
     }
-  };
+};
 };
