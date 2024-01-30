@@ -34,18 +34,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (paramName === "w" || paramName === "h" || paramName === "width" || paramName === "height") {
                     sketchInstance.resizeCanvas(sketchInstance.parameters["w"].value, sketchInstance.parameters["h"].value);
-                    adjustControlsContainerHeight(controlsContainerId, sketchInstance.parameters["h"].value);
+                    adjustContainerHeight(controlsContainerId, sketchInstance.parameters["h"].value);
                 }
 
                 sketchInstance.redraw();
             });
         }
 
-        adjustControlsContainerHeight(controlsContainerId, sketchInstance.parameters["h"].value);
+        adjustContainerHeight(controlsContainerId, sketchInstance.parameters["h"].value);
     }
 
-    function adjustControlsContainerHeight(containerId, newHeight) {
-        let container = document.getElementById(containerId);
-        container.style.maxHeight = newHeight + 'px'; // Adjust 50px for additional padding/spacing
+    function adjustContainerHeight(containerId, newHeight) {
+        let container = document.getElementById(containerId).parentNode;
+        if (container && container.classList.contains('sketch-container')) {
+            container.style.height = newHeight + 'px';
     }
 });

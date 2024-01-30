@@ -2,33 +2,39 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
 canvas {
   display: block;
 }
-  
-.controls-container {
-    overflow-y: auto;
-    padding: 10px;
-    margin: 0; /* Resetting margin */
-    /* Set an initial max-height if needed, or make it depend on the sketch's height */
-}
 
 .sketch-container {
-    display: flex;
-    align-items: flex-start; /* Align items to the start of the flex container */
+  display: flex;
+  align-items: start;
 }
 
-/* Resetting default margins for elements inside controls-container */
+.controls-container, .textbox {
+  overflow-y: auto;
+  padding: 10px;
+  margin-left: 20px; /* Space between elements */
+  max-height: 100%; /* Adapt to parent container's height */
+}
+
+/* Style for the sketch containers */
+#container1, #container2 {
+  flex-grow: 1;
+  /* Additional styles if necessary */
+}
+
+/* Styling for elements inside controls-container */
 .controls-container label,
 .controls-container input[type="range"] {
-    margin: 5px 0; /* Adjust as needed */
+  display: block; /* Make each control occupy its own line */
+  margin: 5px 0; /* Spacing between controls */
 }
 
 .textbox {
-  padding: 10px;
-  margin-left: 20px; /* Space between the sketch and the textbox */
-  /* Adjust width, font size, and other styles as needed */
-  width: 200px; /* Example width, adjust as needed */
+  width: 200px; /* Adjust as needed */
+  /* Additional textbox styles */
 }
 
 .textbox h1 {
