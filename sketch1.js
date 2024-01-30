@@ -6,9 +6,9 @@ var sketch1 = function(p) {
   let y_margin = x_margin;
 
   // Bar parameters
-  // let bar_num = 35;
-  // let bar_w_min = 0.05;
-  // let bar_w_max = 0.6;
+  let bar_num = 35;
+  let bar_w_min = 0.05;
+  let bar_w_max = 0.6;
   let bar_phi_0 = 0.0;
   let bar_phi_1 = p.PI;
   let bar_alpha_0 = 1.0;
@@ -62,9 +62,9 @@ var sketch1 = function(p) {
   };
 
   p.updateParameters = function(newBarNum, newBarWMin, newBarWMax) {
-    barNum = newBarNum;
-    barWMin = newBarWMin;
-    barWMax = newBarWMax;
+    bar_num = newBarNum;
+    bar_w_min = newBarWMin;
+    bar_w_max = newBarWMax;
 
     p.redraw(); // Redraw the sketch with updated parameters
 };
