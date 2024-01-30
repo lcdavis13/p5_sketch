@@ -31,6 +31,7 @@ var sketch1 = function(p) {
   }
 
   p.draw = function() {
+
     let x0 = p.parameters.xMargin;
     let x1 = w - p.parameters.xMargin;
     let y0 = p.parameters.yMargin;
@@ -58,4 +59,12 @@ var sketch1 = function(p) {
       }
     }
   };
+
+  p.updateParameters = function(newBarNum, newBarWMin, newBarWMax) {
+    bar_num = newBarNum;
+    bar_w_min = newBarWMin;
+    bar_w_max = newBarWMax;
+
+    p.redraw(); // Redraw the sketch with updated parameters
+};
 };

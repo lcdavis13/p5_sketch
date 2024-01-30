@@ -56,12 +56,25 @@ class Particle {
 // Instance mode sketch.
 var sketch2 = function(p) {
   let particles = [];
+  let isPaused = false; // Variable to track pause state
 
   p.setup = function() {
     p.createCanvas(720, 400);
     for (let i = 0; i < p.width / 200; i++) {
       particles.push(new Particle(p));
     }
+
+    // Button event listener
+    document.getElementById('pause-resume').addEventListener('click', function() {
+      if (isPaused) {
+        p.loop();
+        this.innerHTML = 'Pause'; // Change button text to 'Pause'
+      } else {
+        p.noLoop();
+        this.innerHTML = 'Resume'; // Change button text to 'Resume'
+      }
+      isPaused = !isPaused; // Toggle the pause state
+    });
   };
 
   p.draw = function() {
