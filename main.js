@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let sketch2Instance = new p5(sketch2, 'container2');
 
     createControls(sketch1Instance, 'container1-controls');
-    // Assuming you'll add createControls for sketch2Instance too if needed
+    createControls(sketch2Instance, 'container2-controls');
 
     function createControls(sketchInstance, controlsContainerId) {
         let container = document.getElementById(controlsContainerId);
@@ -48,5 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let container = document.getElementById(containerId).parentNode;
         if (container && container.classList.contains('sketch-container')) {
             container.style.height = newHeight + 'px';
+        }
     }
 });
