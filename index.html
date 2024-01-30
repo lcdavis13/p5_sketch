@@ -2,25 +2,26 @@
 <html lang="en">
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>-->
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <main>
-        <!-- Containers for the sketches -->
-        <div id="container1"></div>
-        <div id="container1-controls" class="controls-container"></div>
-        <div id="container2"></div>
-        <div id="container2-controls" class="controls-container">
-            <button id="pause-resume">Pause</button>
+        <div class="sketch-container">
+            <div id="container1"></div>
+            <div id="container1-controls" class="controls-container"></div>
+        </div>
+
+        <div class="sketch-container">
+            <div id="container2"></div>
+            <div id="container2-controls" class="controls-container">
+                <button id="pause-resume">Pause</button>
+            </div>
         </div>
     </main>
-    <!-- Sketch files -->
     <script src="sketch1.js"></script>
     <script src="sketch2.js"></script>
-    <!-- Main file to instantiate sketches -->
     <script src="main.js"></script>
 </body>
 </html>

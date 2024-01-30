@@ -6,11 +6,16 @@ html, body {
     display: block;
   }
   
-.controls-container {
-    max-height: 400px; /* Adjust as needed */
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding: 10px; /* Optional: for better spacing */
+  .sketch-container {
+    display: flex;
+    align-items: start;
 }
+
+.controls-container {
+    overflow-y: auto;
+    padding: 10px;
+}
+
 
 /* Additional styling for aesthetics (optional) */
 .controls-container label,
