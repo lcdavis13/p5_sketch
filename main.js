@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
     createControls(sketch1Instance, 'container1-controls');
     createControls(sketch2Instance, 'container2-controls');
 
+    // Add event listener for the Restart button
+    document.getElementById('restart-sketch2').addEventListener('click', function() {
+        sketch2Instance.initializeParticles(); // Call the method to reinitialize particles
+        sketch2Instance.redraw();
+    });
+
     function createControls(sketchInstance, controlsContainerId) {
         let container = document.getElementById(controlsContainerId);
 

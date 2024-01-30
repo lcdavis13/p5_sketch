@@ -86,6 +86,14 @@ var sketch2 = function(p) {
     });
   };
 
+  // Method to reinitialize particles
+  p.initializeParticles = function() {
+      particles = [];
+      for (let i = 0; i < p.parameters.particleCount.value; i++) {
+          particles.push(new Particle(p));
+      }
+  };
+
   function initializeParticles() {
     particles = [];
     for (let i = 0; i < p.parameters.particleCount.value; i++) {
