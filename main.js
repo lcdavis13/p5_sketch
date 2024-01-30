@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     let sketch1Instance = new p5(sketch1, 'container1');
+    let sketch2Instance = new p5(sketch2, 'container2');
 
     createControls(sketch1Instance, 'container1-controls');
 
@@ -27,10 +28,19 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(document.createElement('br'));
 
             // Event listener for slider
-            slider.addEventListener('input', function() {
-                sketchInstance.parameters[paramName].value = parseFloat(this.value);
-                sketchInstance.redraw(); // Assuming you have a method in your sketch to redraw based on updated parameters
-            });
+            let slideFunc;
+            if (paramName == "w" || paramName == "h" || paramName == "width" || paramName == "height") 
+                slideFunc = function() {
+                    sketchInstance.parameters[paramName].value = parseFloat(this.value);
+                    sketchInstance.resizeCanvas(sketchInstance.parameters["w"].value, sketchInstance.parameters["h"].value);
+                    sketchInstance.redraw();
+                }
+            else
+                slideFunc = function() {
+                    sketchInstance.parameters[paramName].value = parseFloat(this.value);
+                    sketchInstance.redraw();
+                }
+            slider.addEventListener('input', slideFunc);
         }
     }
 });
