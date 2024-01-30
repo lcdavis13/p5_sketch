@@ -7,7 +7,8 @@ canvas {
 }
   
 .controls-container {
-    overflow-y: overlay; /* Use overlay scrollbars */
+    overflow-y: overlay;
+    overflow-x: overlay;
     padding: 10px;
     margin: 0; /* Resetting margin */
     /* Set an initial max-height if needed, or make it depend on the sketch's height */
