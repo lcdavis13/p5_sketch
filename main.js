@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (paramName == "w" || paramName == "h") 
                 slideFunc = function() {
                     sketchInstance.parameters[paramName].value = parseFloat(this.value);
-                    sketchInstance.resizecanvas(sketchInstance.parameters["w"].value, sketchInstance.parameters["h"].value);
+                    sketchInstance.resizeCanvas(sketchInstance.parameters["w"].value, sketchInstance.parameters["h"].value);
                     sketchInstance.redraw(); // Assuming you have a method in your sketch to redraw based on updated parameters
                 }
             else
