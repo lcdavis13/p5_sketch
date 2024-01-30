@@ -6,3 +6,15 @@ html, body {
     display: block;
   }
   
+.controls-container {
+    max-height: 400px; /* Adjust as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px; /* Optional: for better spacing */
+}
+
+/* Additional styling for aesthetics (optional) */
+.controls-container label,
+.controls-container input[type="range"] {
+    display: block; /* Make each control occupy its own line */
+    margin-bottom: 10px; /* Spacing between controls */
+}
