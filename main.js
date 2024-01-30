@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 sketchInstance.redraw();
             });
         }
+
+        adjustControlsContainerHeight(controlsContainerId, sketchInstance.parameters["h"].value);
     }
 
     function adjustControlsContainerHeight(containerId, newHeight) {
