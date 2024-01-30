@@ -1,23 +1,36 @@
 document.addEventListener('DOMContentLoaded', function() {
     let sketch1Instance = new p5(sketch1, 'container1');
-    let sketch2Instance = new p5(sketch2, 'container2');
 
-    // Assuming you have sliders with IDs like 'bar-num-slider', 'bar-w-min-slider', etc.
-    document.getElementById('bar-num-slider').addEventListener('input', function() {
-        updateSketches();
-    });
-    document.getElementById('bar-w-min-slider').addEventListener('input', function() {
-        updateSketches();
-    });
-    document.getElementById('bar-w-max-slider').addEventListener('input', function() {
-        updateSketches();
-    });
+    createControls(sketch1Instance, 'container1-controls');
 
-    function updateSketches() {
-        let barNum = parseInt(document.getElementById('bar-num-slider').value);
-        let barWMin = parseFloat(document.getElementById('bar-w-min-slider').value);
-        let barWMax = parseFloat(document.getElementById('bar-w-max-slider').value);
+    function createControls(sketchInstance, controlsContainerId) {
+        let container = document.getElementById(controlsContainerId);
 
-        sketch1Instance.updateParameters(barNum, barWMin, barWMax);
+        for (let paramName in sketchInstance.parameters) {
+            let param = sketchInstance.parameters[paramName];
+
+            // Create label
+            let label = document.createElement('label');
+            label.innerHTML = param.label;
+            container.appendChild(label);
+
+            // Create slider
+            let slider = document.createElement('input');
+            slider.type = 'range';
+            slider.id = controlsContainerId + '-' + paramName;
+            slider.min = param.min;
+            slider.max = param.max;
+            slider.step = param.step;
+            slider.value = param.value;
+
+            container.appendChild(slider);
+            container.appendChild(document.createElement('br'));
+
+            // Event listener for slider
+            slider.addEventListener('input', function() {
+                sketchInstance.parameters[paramName].value = parseFloat(this.value);
+                sketchInstance.redraw(); // Assuming you have a method in your sketch to redraw based on updated parameters
+            });
+        }
     }
 });
