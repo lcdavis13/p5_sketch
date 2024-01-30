@@ -12,7 +12,7 @@ var sketch1 = function(p) {
     barPhi1: { label: 'Bar Phi End', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: p.PI },
     barAlpha0: { label: 'Bar Alpha Start', min: 0, max: 1, step: 0.1, value: 1.0 },
     barAlpha1: { label: 'Bar Alpha End', min: 0, max: 1, step: 0.1, value: 0.5 },
-    dispMag: { label: 'Displacement Magnitude', min: 0, max: 1, step: 0.01, value: 1.0 / 6.0 },
+    dispMag: { label: 'Displacement Magnitude', min: -1, max: 1, step: 0.01, value: 1.0 / 6.0 },
     dispTheta0: { label: 'Displacement Theta Start', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: 0.025 * p.PI },
     dispTheta1: { label: 'Displacement Theta End', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: 0.975 * p.PI },
     dispRho0: { label: 'Displacement Rho Start', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: 0.0 },
