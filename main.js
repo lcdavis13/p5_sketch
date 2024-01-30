@@ -28,10 +28,19 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(document.createElement('br'));
 
             // Event listener for slider
-            slider.addEventListener('input', function() {
-                sketchInstance.parameters[paramName].value = parseFloat(this.value);
-                sketchInstance.redraw(); // Assuming you have a method in your sketch to redraw based on updated parameters
-            });
+            let slideFunc;
+            if (paramName == "w" || paramName == "h") 
+                slideFunc = function() {
+                    sketchInstance.parameters[paramName].value = parseFloat(this.value);
+                    sketchInstance.resizecanvas(sketchInstance.parameters["w"].value, sketchInstance.parameters["h"].value);
+                    sketchInstance.redraw(); // Assuming you have a method in your sketch to redraw based on updated parameters
+                }
+            else
+                slideFunc = function() {
+                    sketchInstance.parameters[paramName].value = parseFloat(this.value);
+                    sketchInstance.redraw(); // Assuming you have a method in your sketch to redraw based on updated parameters
+                }
+            slider.addEventListener('input', slideFunc);
         }
     }
 });

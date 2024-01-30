@@ -1,28 +1,26 @@
 var sketch1 = function(p) {
-  // Canvas dimensions
-  let w = 500;
-  let h = 320;
-
   // Parameters metadata
   p.parameters = {
+    w: {label: 'Width', min: 32, max: 1024, step: 2, value: 500},
+    h: {label: 'Height', min: 32, max: 1024, step: 2, value: 320},
     xMargin: { label: 'X Margin', min: 0, max: 100, step: 1, value: 25 },
     yMargin: { label: 'Y Margin', min: 0, max: 100, step: 1, value: 25 },
-    barNum: { label: 'Number of Bars', min: 1, max: 100, step: 1, value: 35 },
-    barWMin: { label: 'Minimum Bar Width', min: 0.01, max: 1, step: 0.01, value: 0.05 },
-    barWMax: { label: 'Maximum Bar Width', min: 0.1, max: 2, step: 0.1, value: 0.6 },
+    barNum: { label: 'Number of Bars', min: 1, max: 100, step: 1, value: 25 },
+    barWMin: { label: 'Minimum Bar Width', min: 0, max: 1, step: 0.01, value: 0.05 },
+    barWMax: { label: 'Maximum Bar Width', min: 0, max: 1, step: 0.1, value: 0.6 },
     barPhi0: { label: 'Bar Phi Start', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: 0.0 },
     barPhi1: { label: 'Bar Phi End', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: p.PI },
     barAlpha0: { label: 'Bar Alpha Start', min: 0, max: 1, step: 0.1, value: 1.0 },
     barAlpha1: { label: 'Bar Alpha End', min: 0, max: 1, step: 0.1, value: 0.5 },
     dispMag: { label: 'Displacement Magnitude', min: 0, max: 1, step: 0.01, value: 1.0 / 6.0 },
-    dispTheta0: { label: 'Displacement Theta Start', min: 0, max: p.PI, step: 0.05 * p.PI, value: 0.025 * p.PI },
-    dispTheta1: { label: 'Displacement Theta End', min: 0, max: p.PI, step: 0.05 * p.PI, value: 0.975 * p.PI },
+    dispTheta0: { label: 'Displacement Theta Start', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: 0.025 * p.PI },
+    dispTheta1: { label: 'Displacement Theta End', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: 0.975 * p.PI },
     dispRho0: { label: 'Displacement Rho Start', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: 0.0 },
     dispRho1: { label: 'Displacement Rho End', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: p.PI },
   };
 
   p.setup = function() {
-    p.createCanvas(w, h);
+    p.createCanvas(p.parameters.w.value, p.parameters.h.value);
     p.noLoop()
   };
 
@@ -33,9 +31,9 @@ var sketch1 = function(p) {
   p.draw = function() {
 
     let x0 = p.parameters.xMargin.value;
-    let x1 = w - p.parameters.xMargin.value;
+    let x1 = p.parameters.w.value - p.parameters.xMargin.value;
     let y0 = p.parameters.yMargin.value;
-    let y1 = h - p.parameters.yMargin.value;
+    let y1 = p.parameters.h.value - p.parameters.yMargin.value;
     let bar_interval = (x1 - x0) / p.parameters.barNum.value;
 
     p.background(0, 0, 0);
@@ -59,12 +57,4 @@ var sketch1 = function(p) {
       }
     }
   };
-
-  p.updateParameters = function(newBarNum, newBarWMin, newBarWMax) {
-    bar_num = newBarNum;
-    bar_w_min = newBarWMin;
-    bar_w_max = newBarWMax;
-
-    p.redraw(); // Redraw the sketch with updated parameters
-};
 };
