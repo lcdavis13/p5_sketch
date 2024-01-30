@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     let sketch1Instance = new p5(sketch1, 'container1');
+    let sketch2Instance = new p5(sketch2, 'container2');
 
     createControls(sketch1Instance, 'container1-controls');
 
