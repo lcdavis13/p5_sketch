@@ -71,7 +71,7 @@ var sketch2 = function(p) {
 
     p.setup = function() {
         p.createCanvas(p.parameters.w.value, p.parameters.h.value);
-        p.initializeParticles();
+        initializeParticles();
 
     // Button event listener
     document.getElementById('pause-resume').addEventListener('click', function() {
