@@ -21,10 +21,10 @@ var sketch3 = function(p) {
   function initializeGrid() {
       grid = [];
       next = [];
-      for (var x = 0; x < p.width; x++) {
+      for (var x = 0; x < p.parameters.w.value; x++) {
           grid[x] = [];
           next[x] = [];
-          for (var y = 0; y < p.height; y++) {
+          for (var y = 0; y < p.parameters.h.value; y++) {
               grid[x][y] = { a: 1, b: 0 };
               next[x][y] = { a: 1, b: 0 };
           }
@@ -40,8 +40,8 @@ var sketch3 = function(p) {
   p.draw = function() {
       p.background(51);
 
-      for (var x = 0; x < p.width; x++) {
-          for (var y = 0; y < p.height; y++) {
+      for (var x = 0; x < p.parameters.w.value; x++) {
+          for (var y = 0; y < p.parameters.h.value; y++) {
               var a = grid[x][y].a;
               var b = grid[x][y].b;
               next[x][y].a = a + p.parameters.dt.value *
@@ -59,9 +59,9 @@ var sketch3 = function(p) {
       }
 
       p.loadPixels();
-      for (var x = 0; x < p.width; x++) {
-          for (var y = 0; y < p.height; y++) {
-              var pix = (x + y * p.width) * 4;
+      for (var x = 0; x < p.parameters.w.value; x++) {
+          for (var y = 0; y < p.parameters.h.value; y++) {
+              var pix = (x + y * p.parameters.w.value) * 4;
               var a = next[x][y].a;
               var b = next[x][y].b;
               var c = p.floor((a - b) * 255);
@@ -81,11 +81,11 @@ var sketch3 = function(p) {
     let nx, ny;
     if (x < 0)
     {
-      nx = p.width + x;
+      nx = p.parameters.w.value + x;
     }
-    else if (x >= p.width)
+    else if (x >= p.parameters.w.value)
     {
-      nx = x - p.width;
+      nx = x - p.parameters.w.value;
     }
     else
     {
@@ -93,11 +93,11 @@ var sketch3 = function(p) {
     }  
     if (y < 0)
     {
-      ny = p.height + y;
+      ny = p.parameters.h.value + y;
     }
-    else if (y >= p.height)
+    else if (y >= p.parameters.h.value)
     {
-      ny = y - p.height;
+      ny = y - p.parameters.h.value;
     }
     else
     {
@@ -107,18 +107,18 @@ var sketch3 = function(p) {
     
     
     if (x < 0) {
-      nx = x-(x%p.width)
+      nx = x-(x%p.parameters.w.value)
     }
     else
     {
-      nx = x%p.width;
+      nx = x%p.parameters.w.value;
     }
     if (y < 0) {
-      ny = y-(y%p.height)
+      ny = y-(y%p.parameters.h.value)
     }
     else
     {
-      ny = y%p.height;
+      ny = y%p.parameters.h.value;
     }
     return grid[nx][ny];
   }
