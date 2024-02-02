@@ -87,14 +87,14 @@ var sketch2 = function(p) {
   };
 
   // Method to reinitialize particles
-  initializeParticles() {
+  function initializeParticles() {
       particles = [];
       for (let i = 0; i < p.parameters.particleCount.value; i++) {
           particles.push(new Particle(p));
       }
   };
   
-  p.restart = initializeParticles();
+  p.restart = function() {initializeParticles();}
 
   p.draw = function() {
     p.background('#0f0f0f');
