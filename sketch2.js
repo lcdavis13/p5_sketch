@@ -87,14 +87,16 @@ var sketch2 = function(p) {
   };
 
   // Method to reinitialize particles
-  p.initializeParticles = function() {
+  initializeParticles() {
       particles = [];
       for (let i = 0; i < p.parameters.particleCount.value; i++) {
           particles.push(new Particle(p));
       }
   };
+  
+  p.restart = initializeParticles();
 
-p.draw = function() {
+  p.draw = function() {
     p.background('#0f0f0f');
     for (let i = 0; i < particles.length; i++) {
         particles[i].ApplyForce(particles.slice(i));

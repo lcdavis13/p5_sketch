@@ -1,14 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
     let sketch1Instance = new p5(sketch1, 'container1');
     let sketch2Instance = new p5(sketch2, 'container2');
+    let sketch3Instance = new p5(sketch3, 'container3');
 
     createControls(sketch1Instance, 'container1-controls');
     createControls(sketch2Instance, 'container2-controls');
+    createControls(sketch3Instance, 'container3-controls');
 
     // Add event listener for the Restart button
     document.getElementById('restart-sketch2').addEventListener('click', function() {
-        sketch2Instance.initializeParticles(); // Call the method to reinitialize particles
+        sketch2Instance.restart(); // Call the method to reinitialize particles
         sketch2Instance.redraw();
+    });
+
+    // Add event listener for the Restart button
+    document.getElementById('restart-sketch3').addEventListener('click', function() {
+        sketch3Instance.restart(); // Call the method to reinitialize particles
+        sketch3Instance.redraw();
     });
 
     function createControls(sketchInstance, controlsContainerId) {
