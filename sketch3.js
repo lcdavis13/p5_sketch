@@ -3,6 +3,8 @@ var sketch3 = function(p) {
   var diagonal_rate = 0.709; // 1/sqrt(2)
 
   p.parameters = {
+      w: {label: 'Width', min: 32, max: 1024, step: 2, value: 200},
+      h: {label: 'Height', min: 32, max: 1024, step: 2, value: 200},
       dA: { label: 'Diffusion Rate A', min: 0.8, max: 1.2, step: 0.01, value: 1 },
       dB: { label: 'Diffusion Rate B', min: 0.4, max: 0.6, step: 0.01, value: 0.5 },
       feed: { label: 'Feed Rate', min: 0.03, max: 0.08, step: 0.001, value: 0.055 },
@@ -79,11 +81,11 @@ var sketch3 = function(p) {
     let nx, ny;
     if (x < 0)
     {
-      nx = width + x;
+      nx = p.width + x;
     }
-    else if (x >= width)
+    else if (x >= p.width)
     {
-      nx = x - width;
+      nx = x - p.width;
     }
     else
     {
@@ -91,11 +93,11 @@ var sketch3 = function(p) {
     }  
     if (y < 0)
     {
-      ny = height + y;
+      ny = p.height + y;
     }
-    else if (y >= height)
+    else if (y >= p.height)
     {
-      ny = y - height;
+      ny = y - p.height;
     }
     else
     {
@@ -105,18 +107,18 @@ var sketch3 = function(p) {
     
     
     if (x < 0) {
-      nx = x-(x%width)
+      nx = x-(x%p.width)
     }
     else
     {
-      nx = x%width;
+      nx = x%p.width;
     }
     if (y < 0) {
-      ny = y-(y%height)
+      ny = y-(y%p.height)
     }
     else
     {
-      ny = y%height;
+      ny = y%p.height;
     }
     return grid[nx][ny];
   }
