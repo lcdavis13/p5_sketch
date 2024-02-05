@@ -43,7 +43,12 @@ var sketch3 = function(p) {
 
     for (var i = 150; i < 160; i++) {
       for (var j = 150; j < 160; j++) {
-        grid[i][j].b = 1.0; // Seed some initial value for B
+        grid[i][j].b = 1.0; 
+      }
+    }
+    for (var i = 140; i < 150; i++) {
+      for (var j = 140; j < 150; j++) {
+        grid[i][j].b = 1.0; 
       }
     }
   }
