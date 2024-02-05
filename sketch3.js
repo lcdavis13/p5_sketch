@@ -33,7 +33,7 @@ var sketch3 = function(p) {
 
     for (var i = 150; i < 160; i++) {
         for (var j = 150; j < 160; j++) {
-            grid[i][j].b = 0.5 + 0.5 * p.random();
+            grid[i][j].b = 1.0; //0.5 + 0.5 * p.random();
         }
     }
   }
@@ -76,7 +76,7 @@ var sketch3 = function(p) {
 
   function laplace(x, y, type) {
       var sum = 0;
-      var rate = 0.146; // Direct neighbor rate
+      var rate = 1.0/(4.0*diagonal_rate + 4.0); // sums to 1 for all incoming cells
 
       sum += grid[x][y][type] * -1;
       sum += getNeighborConcentration(x - 1, y, type) * rate;
