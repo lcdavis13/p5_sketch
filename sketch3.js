@@ -107,5 +107,22 @@ var sketch3 = function(p) {
   }
 
   function setPixelColor(pixelIndex, colorVal) {
-      p.pixels[pixelIndex + 0] = colorVal;
-      p.pixels[pixelIndex + 1]
+    p.pixels[pixelIndex + 0] = colorVal; // Red
+    p.pixels[pixelIndex + 1] = colorVal; // Green
+    p.pixels[pixelIndex + 2] = colorVal; // Blue
+    p.pixels[pixelIndex + 3] = 255;       // Alpha
+}
+
+function swap() {
+    var temp = grid;
+    grid = next;
+    next = temp;
+}
+
+// Method to restart the simulation
+p.restart = function() {
+    initializeGrid();
+};
+};
+
+new p5(sketch3, 'container2');
