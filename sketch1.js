@@ -19,9 +19,18 @@ var sketch1 = function(p) {
     dispRho1: { label: 'Displacement Rho End', min: 0, max: 2 * p.PI, step: 0.05 * p.PI, value: p.PI },
   };
 
+  // Helper function to destructure parameters
+  function params() {
+    return Object.keys(p.parameters).reduce((values, key) => {
+      values[key] = p.parameters[key].value;
+      return values;
+    }, {});
+  }
+
   p.setup = function() {
-    p.createCanvas(p.parameters.w.value, p.parameters.h.value);
-    p.noLoop()
+    const { w, h } = params();
+    p.createCanvas(w, h);
+    p.noLoop();
   };
 
   function convert(x, x0, x1, y0, y1) {
@@ -29,29 +38,34 @@ var sketch1 = function(p) {
   }
 
   p.draw = function() {
+    const {
+      xMargin, w, yMargin, h, barNum, barWMin, barWMax, barPhi0,
+      barPhi1, barAlpha0, barAlpha1, dispMag, dispTheta0, dispTheta1,
+      dispRho0, dispRho1
+    } = params();
 
-    let x0 = p.parameters.xMargin.value;
-    let x1 = p.parameters.w.value - p.parameters.xMargin.value;
-    let y0 = p.parameters.yMargin.value;
-    let y1 = p.parameters.h.value - p.parameters.yMargin.value;
-    let bar_interval = (x1 - x0) / p.parameters.barNum.value;
+    let x0 = xMargin;
+    let x1 = w - xMargin;
+    let y0 = yMargin;
+    let y1 = h - yMargin;
+    let bar_interval = (x1 - x0) / barNum;
 
     p.background(0, 0, 0);
     p.strokeWeight(2);
 
-    for (let i = 0; i < p.parameters.barNum.value + 1; i++) {
-      p.stroke(255, 255, 255, 255 * convert(i, 0, p.parameters.barNum.value, p.parameters.barAlpha0.value, p.parameters.barAlpha1.value));
+    for (let i = 0; i < barNum + 1; i++) {
+      p.stroke(255, 255, 255, 255 * convert(i, 0, barNum, barAlpha0, barAlpha1));
 
-      let phi = convert(i, 0, p.parameters.barNum.value, p.parameters.barPhi0.value, p.parameters.barPhi1.value)
+      let phi = convert(i, 0, barNum, barPhi0, barPhi1);
       let bar_cos = p.cos(phi);
-      let bar_w = p.int(convert(bar_cos, -1.0, 1.0, p.parameters.barWMin.value * bar_interval, p.parameters.barWMax.value * bar_interval));
+      let bar_w = p.int(convert(bar_cos, -1.0, 1.0, barWMin * bar_interval, barWMax * bar_interval));
 
-      let base_x = convert(i, 0, p.parameters.barNum.value, x0, x1)
+      let base_x = convert(i, 0, barNum, x0, x1);
       for (let y = y0; y < y1; y += 1) {
-        let theta = convert(y, y0, y1, p.parameters.dispTheta0.value, p.parameters.dispTheta1.value);
-        let rho = convert(i, 0, p.parameters.barNum.value, p.parameters.dispRho0.value, p.parameters.dispRho1.value);
+        let theta = convert(y, y0, y1, dispTheta0, dispTheta1);
+        let rho = convert(i, 0, barNum, dispRho0, dispRho1);
 
-        let x = base_x + p.sin(theta) ** 2 * p.sin(rho) ** 2 * p.parameters.dispMag.value * (x1 - x0);
+        let x = base_x + p.sin(theta) ** 2 * p.sin(rho) ** 2 * dispMag * (x1 - x0);
 
         p.line(x, y, x + bar_w, y);
       }
