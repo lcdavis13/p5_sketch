@@ -150,5 +150,3 @@ p.restart = function() {
     initializeGrid();
 };
 };
-
-new p5(sketch3, 'container2');
