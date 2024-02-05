@@ -46,27 +46,33 @@ var sketch3 = function(p) {
   };
 
   function updateGrid() {
-      for (var x = 0; x < p.parameters.w.value; x++) {
-          for (var y = 0; y < p.parameters.h.value; y++) {
-              var laplaceAVal = laplace(x, y, 'a');
-              var laplaceBVal = laplace(x, y, 'b');
-              var a = grid[x][y].a;
-              var b = grid[x][y].b;
+    for (var x = 0; x < p.parameters.w.value; x++) {
+      for (var y = 0; y < p.parameters.h.value; y++) {
+        var laplaceAVal = laplace(x, y, 'a');
+        var laplaceBVal = laplace(x, y, 'b');
+        var a = grid[x][y].a;
+        var b = grid[x][y].b;
 
-              next[x][y].a = updateConcentration(a, laplaceAVal, b, 'a');
-              next[x][y].b = updateConcentration(b, laplaceBVal, a, 'b');
-          }
+        next[x][y].a = updateConcentrationA(a, b, laplaceAVal);
+        next[x][y].b = updateConcentrationB(b, a, laplaceBVal);
       }
+    }
   }
 
-  function updateConcentration(conc, laplaceVal, otherConc, type) {
-      var rate = type === 'a' ? p.parameters.dA.value : p.parameters.dB.value;
-      var reactionTerm = type === 'a' ? -conc * otherConc * otherConc + p.parameters.feed.value * (1 - conc) 
-                                      : conc * otherConc * otherConc - (p.parameters.k.value + p.parameters.feed.value) * conc;
-      var diffusionTerm = rate * laplaceVal;
-      var updatedConc = conc + p.parameters.dt.value * (diffusionTerm + reactionTerm);
-      return p.constrain(updatedConc, 0, 1);
+  function updateConcentrationA(a, b, laplaceAVal) {
+      var reactionTermA = -a * b * b + p.parameters.feed.value * (1 - a);
+      var diffusionTermA = p.parameters.dA.value * laplaceAVal;
+      var updatedA = a + p.parameters.dt.value * (diffusionTermA + reactionTermA);
+      return p.constrain(updatedA, 0, 1);
   }
+
+  function updateConcentrationB(b, a, laplaceBVal) {
+      var reactionTermB = a * b * b - (p.parameters.k.value + p.parameters.feed.value) * b;
+      var diffusionTermB = p.parameters.dB.value * laplaceBVal;
+      var updatedB = b + p.parameters.dt.value * (diffusionTermB + reactionTermB);
+      return p.constrain(updatedB, 0, 1);
+  }
+
 
   function laplace(x, y, type) {
       var sum = 0;
